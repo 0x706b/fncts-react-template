@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext", "dom"],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "types": ["node", "react/next", "react-dom/next"]
+  },
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "esm": true
+  }
+}

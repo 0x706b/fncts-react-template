@@ -29,7 +29,7 @@
     "@types/styled-components": "^5.1.26",
     "@types/webpack-hot-middleware": "^2.25.6",
     "babel-loader": "^8.2.5",
-    "babel-plugin-styled-components": "^2.0.7",
+    "babel-plugin-styled-components": "patch:babel-plugin-styled-components@npm%3A2.0.7#~/.yarn/patches/babel-plugin-styled-components-npm-2.0.7-543710bd48.patch",
     "eslint": "^8.23.0",
     "express": "^4.18.1",
     "node-match-path": "^0.6.3",

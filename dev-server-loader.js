@@ -34,7 +34,7 @@ export async function load(url, context, defaultLoad) {
   const { format, source } = tsNode;
   if (format === "module" || format === "commonjs") {
     const config = Babel.loadPartialConfig({
-      filename: url,
+      filename: url.split("?update=")[0],
       plugins: ["babel-plugin-styled-components"],
       presets: [["@babel/preset-react", { runtime: "automatic" }]],
     });

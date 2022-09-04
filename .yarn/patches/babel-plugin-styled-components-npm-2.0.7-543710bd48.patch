@@ -1,0 +1,38 @@
+diff --git a/lib/visitors/displayNameAndId.js b/lib/visitors/displayNameAndId.js
+index faf81cc70b0ef7e6c4fd5295f8cbae0eb0da6bd8..970a6c6c4d75ad6b8be4387bf97b2db102d35175 100644
+--- a/lib/visitors/displayNameAndId.js
++++ b/lib/visitors/displayNameAndId.js
+@@ -115,12 +115,24 @@ const getFileHash = state => {
+   const {
+     file
+   } = state; // hash calculation is costly due to fs operations, so we'll cache it per file.
++  
++  if (!globalThis.styledComponentsFileHash) {
++    globalThis.styledComponentsFileHash = new Map();
++  }
+ 
+   if (file.get(FILE_HASH)) {
+     return file.get(FILE_HASH);
+   }
+ 
+-  const filename = file.opts.filename; // find module root directory
++  let filename = file.opts.filename; // find module root directory
++
++  if (filename.includes('file:')) {
++    filename = filename.split('file:')[1];
++  }
++
++  if (globalThis.styledComponentsFileHash.has(filename)) {
++    return globalThis.styledComponentsFileHash.get(filename);
++  }
+ 
+   const moduleRoot = findModuleRoot(filename);
+ 
+@@ -138,6 +150,7 @@ const getFileHash = state => {
+ 
+   const fileHash = (0, _hash.default)(stuffToHash.join(''));
+   file.set(FILE_HASH, fileHash);
++  globalThis.styledComponentsFileHash.set(filename, fileHash)
+   return fileHash;
+ };
+ 

@@ -2880,7 +2880,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-styled-components@npm:^2.0.7":
+"babel-plugin-styled-components@npm:2.0.7":
   version: 2.0.7
   resolution: "babel-plugin-styled-components@npm:2.0.7"
   dependencies:
@@ -2892,6 +2892,21 @@ __metadata:
   peerDependencies:
     styled-components: ">= 2"
   checksum: d18be8e9050d64c83408d980b3e46a75ba406a85321567c9253ec2fc755b7d9ba6e04c2c3d555b68b7aeb8a947cf235e36904ad6aca08617332c0fd38bea2fff
+  languageName: node
+  linkType: hard
+
+"babel-plugin-styled-components@patch:babel-plugin-styled-components@npm%3A2.0.7#~/.yarn/patches/babel-plugin-styled-components-npm-2.0.7-543710bd48.patch":
+  version: 2.0.7
+  resolution: "babel-plugin-styled-components@patch:babel-plugin-styled-components@npm%3A2.0.7#~/.yarn/patches/babel-plugin-styled-components-npm-2.0.7-543710bd48.patch::version=2.0.7&hash=1c8920"
+  dependencies:
+    "@babel/helper-annotate-as-pure": "npm:^7.16.0"
+    "@babel/helper-module-imports": "npm:^7.16.0"
+    babel-plugin-syntax-jsx: "npm:^6.18.0"
+    lodash: "npm:^4.17.11"
+    picomatch: "npm:^2.3.0"
+  peerDependencies:
+    styled-components: ">= 2"
+  checksum: ba039efd3b40fa4a443c44ff4730979108fd7a00595d00b0d1522040b99f78ba30dac5bbe38bc3ae6698eaa92439c7519d79b1d2d5c64875c70d7be83a03ac14
   languageName: node
   linkType: hard
 
@@ -3844,7 +3859,7 @@ __metadata:
     "@types/styled-components": "npm:^5.1.26"
     "@types/webpack-hot-middleware": "npm:^2.25.6"
     babel-loader: "npm:^8.2.5"
-    babel-plugin-styled-components: "npm:^2.0.7"
+    babel-plugin-styled-components: "patch:babel-plugin-styled-components@npm%3A2.0.7#~/.yarn/patches/babel-plugin-styled-components-npm-2.0.7-543710bd48.patch"
     eslint: "npm:^8.23.0"
     express: "npm:^4.18.1"
     node-match-path: "npm:^0.6.3"

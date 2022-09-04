@@ -11,6 +11,7 @@ import { StaticRouter } from "react-router-dom/server.js";
 import { ServerStyleSheet } from "styled-components";
 
 import { App } from "../../App.js";
+import { RouteManifestServiceTag } from "../constants.js";
 import { RouteManifestService } from "../manifest.js";
 
 export const htmlStart = (manifest: ReadonlyArray<RouteManifestEntry>, styleTags: string) => `
@@ -19,7 +20,6 @@ export const htmlStart = (manifest: ReadonlyArray<RouteManifestEntry>, styleTags
   <head>
     <title>fncts-react-template</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/assets/style.css" />
     <script type="module" src="/main.js" async></script>
     ${manifest
       .map((m) => `<link rel="modulepreload" href="${m.href}" />`)
@@ -31,8 +31,9 @@ export const htmlStart = (manifest: ReadonlyArray<RouteManifestEntry>, styleTags
   <body>
     <div id="app">`;
 
-export const htmlEnd = `</div>
+export const htmlEnd = (styleTags: string) => `</div>
   </body>
+  ${styleTags}
 </html>
 `;
 
@@ -40,7 +41,7 @@ const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 export const ssr = makeRequestHandlerRoute((req, res, next) =>
   Do((Δ) => {
-    const { matchRoute } = Δ(IO.service(RouteManifestService));
+    const { matchRoute } = Δ(IO.service(RouteManifestServiceTag));
     Δ(
       matchRoute(req.url).flatMap((entry) =>
         entry.match(
@@ -70,7 +71,6 @@ export const ssr = makeRequestHandlerRoute((req, res, next) =>
                 },
                 onShellReady: () => {
                   const initialStyles = sheet.getStyleTags();
-                  // @ts-expect-error
                   sheet.instance.clearTag();
                   const start    = htmlStart(entry, initialStyles);
                   res.statusCode = errored ? 500 : 200;
@@ -91,6 +91,8 @@ export const ssr = makeRequestHandlerRoute((req, res, next) =>
 );
 
 export class StyleSheetPassthrough extends Writable {
+  private styles = "";
+
   constructor(private sheet: ServerStyleSheet, private _writable: Writable) {
     super();
   }
@@ -104,30 +106,16 @@ export class StyleSheetPassthrough extends Writable {
   }
 
   _write(chunk: any, encoding: BufferEncoding, cb: (err?: Error | null) => void): void {
-    let needsDrain = false;
     // Get the style tags from the `ServerStyleSheet` since the last write
-    const styleTags = this.sheet.getStyleTags();
+    this.styles += this.sheet.getStyleTags();
     // Clear the style tags we just got from the `ServerStyleSheet` instance
-    // styled-components does not expose `clearTag` on `instance` so...
-    // @ts-expect-error
     this.sheet.instance.clearTag();
-    // Write the style tags to the response
-    if (styleTags.length > 0) {
-      needsDrain = !this._writable.write(styleTags, "utf8");
-    }
-    // If the destination needs draining after writing the style tags,
-    // wait for it to drain, then write the chunk from React. Otherwise,
-    // just write the chunk.
-    if (needsDrain) {
-      this._writable.once("drain", () => {
-        this.writeChunk(chunk, encoding, cb);
-      });
-    } else {
-      this.writeChunk(chunk, encoding, cb);
-    }
+    // Write the chunk from React
+    this.writeChunk(chunk, encoding, cb);
   }
 
   _final(): void {
+    this._writable.write(htmlEnd(this.styles), "utf-8");
     this._writable.end();
   }
 }

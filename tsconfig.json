@@ -11,7 +11,13 @@
     "strict": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
-    "types": ["node", "react/next", "react-dom/next"]
+    "types": ["node", "react/next", "react-dom/next", "@types/styled-components/cssprop"],
+    "transformers": [
+      {
+        "name": "@fncts/transformers/tag",
+        "position": "after"
+      }
+    ]
   },
   "exclude": ["node_modules", "dist"],
   "ts-node": {

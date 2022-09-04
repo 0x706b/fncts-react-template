@@ -4,6 +4,8 @@ import type { Match, Path } from "node-match-path";
 import * as fs from "@fncts/node/fs";
 import { match } from "node-match-path";
 
+import { RouteManifestServiceTag } from "./constants.js";
+
 export interface RouteManifestEntry {
   readonly type: string;
   readonly href: string;
@@ -33,8 +35,6 @@ export interface RouteManifestService {
   readonly matchRoute: (url: string) => FIO<ManifestError, Maybe<ReadonlyArray<RouteManifestEntry>>>;
 }
 
-export const RouteManifestService = Tag<RouteManifestService>();
-
 export function createRouteManifestService(path: PathLike): Layer<never, never, RouteManifestService> {
   return Layer.succeed(() => {
     const getRouteManifest = fs
@@ -63,7 +63,7 @@ export function createRouteManifestService(path: PathLike): Layer<never, never, 
     }
 
     return { matchRoute };
-  }, RouteManifestService);
+  }, RouteManifestServiceTag);
 }
 
 export class ManifestError extends Error {

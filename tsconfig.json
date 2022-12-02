@@ -14,7 +14,7 @@
     "types": ["node", "react/next", "react-dom/next", "@types/styled-components/cssprop"],
     "transformers": [
       {
-        "name": "@fncts/transformers/tag",
+        "name": "@fncts/transformers/id",
         "position": "after"
       }
     ]

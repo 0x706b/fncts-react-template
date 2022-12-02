@@ -22,7 +22,7 @@ export const htmlStart = (manifest: ReadonlyArray<RouteManifestEntry>, styleTags
     <meta charset="UTF-8" />
     <script type="module" src="/main.js" async></script>
     ${manifest
-      .map((m) => `<link rel="modulepreload" href="${m.href}" />`)
+      .map((m) => `<script src="${m.href}" async></script>`)
       .reverse()
       .join("")}
     ${styleTags}

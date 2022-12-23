@@ -3,6 +3,9 @@ import fs from "node:fs/promises";
 import * as TsNode from "ts-node";
 import { URL } from "url";
 
+const RESOLUTION_INVALIDATION_TIME = 1_000;
+const RESOLUTION_CACHE             = new Map();
+
 const tsconfig = await fs.readFile("./tsconfig.devServer.json", { encoding: "utf-8" }).then(JSON.parse);
 
 const compiler = TsNode.create({
@@ -10,6 +13,8 @@ const compiler = TsNode.create({
 });
 
 const tsNodeEsmHooks = TsNode.createEsmHooks(compiler);
+
+let lastRefresh = new Date();
 
 export async function resolve(specifier, context, nextResolve) {
   const result = await tsNodeEsmHooks.resolve(specifier, context, nextResolve);
@@ -19,14 +24,34 @@ export async function resolve(specifier, context, nextResolve) {
     return result;
   }
 
-  if (child.pathname.includes("src/server/constants.ts")) {
+  if (child.pathname.includes("src/constants.ts")) {
     return result;
   }
 
-  return {
-    ...result,
-    url: child.href + "?update=" + new Date().toISOString(),
-  };
+  const now = new Date();
+
+  if (now.getTime() - lastRefresh.getTime() < RESOLUTION_INVALIDATION_TIME) {
+    lastRefresh        = now;
+    const cachedResult = RESOLUTION_CACHE.get(child.href);
+    if (!cachedResult) {
+      const updatedResult = {
+        ...result,
+        url: child.href + "?update=" + now.toISOString(),
+      };
+      RESOLUTION_CACHE.set(child.href, updatedResult);
+      return updatedResult;
+    }
+    return cachedResult;
+  } else {
+    RESOLUTION_CACHE.clear();
+    lastRefresh         = now;
+    const updatedResult = {
+      ...result,
+      url: child.href + "?update=" + now.toISOString(),
+    };
+    RESOLUTION_CACHE.set(child.href, updatedResult);
+    return updatedResult;
+  }
 }
 
 export async function load(url, context, defaultLoad) {

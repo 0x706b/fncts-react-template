@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 
+import { LayerContext } from "./testLayer.js";
+
 const Home = React.lazy(() => import("./pages/Home.js"));
 
 interface AppProps {
@@ -10,10 +12,12 @@ interface AppProps {
 
 export function App({ url }: AppProps) {
   return (
-    <React.Suspense fallback={<p>Loading...</p>}>
-      <Routes location={url}>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </React.Suspense>
+    <LayerContext.Provider>
+      <React.Suspense fallback={<p>Loading...</p>}>
+        <Routes location={url}>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </React.Suspense>
+    </LayerContext.Provider>
   );
 }

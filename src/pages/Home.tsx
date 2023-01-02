@@ -1,18 +1,22 @@
+import { Push } from "@fncts/io/Push";
+import { RefSubject } from "@fncts/io/RefSubject";
+import { usePush, useRefSubject, useScope } from "@fncts/react";
 import React from "react";
 
+const testRefSubject = RefSubject.unsafeMake("blue");
+
+const testStream = Push.repeatIOMaybe(
+  testRefSubject.getAndUpdate((x) => (x === "blue" ? "red" : "blue")).delay((500).milliseconds),
+);
+
 function Home() {
-  const handle            = React.useRef<NodeJS.Timer | number | null>(null);
-  const [color, setColor] = React.useState("blue");
+  const scope                   = useScope();
+  const [startListening, color] = useRefSubject(testRefSubject);
+  const [startStream]           = usePush(testStream);
+
   React.useEffect(() => {
-    handle.current = setInterval(() => {
-      setColor((color) => (color === "blue" ? "red" : "blue"));
-    }, 500);
-    return () => {
-      if (handle.current !== null) {
-        clearInterval(handle.current);
-        handle.current = null;
-      }
-    };
+    startListening.provideScope(scope).unsafeRunAsync();
+    startStream.provideScope(scope).unsafeRunAsync();
   }, []);
 
   return (

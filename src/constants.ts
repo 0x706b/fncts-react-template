@@ -1,3 +1,3 @@
-import type { RouteManifestService } from "./manifest.js";
+import type { RouteManifestService } from "./server/manifest.js";
 
 export const RouteManifestServiceTag = Tag<RouteManifestService>();

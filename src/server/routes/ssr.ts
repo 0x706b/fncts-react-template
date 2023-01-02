@@ -11,7 +11,7 @@ import { StaticRouter } from "react-router-dom/server.js";
 import { ServerStyleSheet } from "styled-components";
 
 import { App } from "../../App.js";
-import { RouteManifestServiceTag } from "../constants.js";
+import { RouteManifestServiceTag } from "../../constants.js";
 import { RouteManifestService } from "../manifest.js";
 
 export const htmlStart = (manifest: ReadonlyArray<RouteManifestEntry>, styleTags: string) => `

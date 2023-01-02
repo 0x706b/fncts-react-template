@@ -1734,13 +1734,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fncts/base@npm:0.0.24, @fncts/base@npm:^0.0.24":
-  version: 0.0.24
-  resolution: "@fncts/base@npm:0.0.24"
+"@fncts/base@npm:0.0.25, @fncts/base@npm:^0.0.25":
+  version: 0.0.25
+  resolution: "@fncts/base@npm:0.0.25"
   dependencies:
     "@fncts/typelevel": "npm:0.0.15"
     uuid: "npm:^9.0.0"
-  checksum: 668e1d4e46727fefa3bd1de3fad2cc8576437f1a447523d3939cc9a743ca932704cd711a0e5abd40e4329fa388fec72a87a9c79188e8f752a3e1a8acf3d563e4
+  checksum: fdce2a4c25642fa1b907ded5eed2bcb356ead881d8405e506d6024281cff8a78197dd224e49c382c95d6389139ac0dd796e26ee59207b09781fa0604882cff93
   languageName: node
   linkType: hard
 
@@ -1775,34 +1775,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fncts/express@npm:^0.0.19":
-  version: 0.0.19
-  resolution: "@fncts/express@npm:0.0.19"
+"@fncts/express@npm:^0.0.23":
+  version: 0.0.23
+  resolution: "@fncts/express@npm:0.0.23"
   dependencies:
-    "@fncts/io": "npm:0.0.26"
+    "@fncts/io": "npm:0.0.30"
   peerDependencies:
     express: ^4.18.1
-  checksum: 8bf1ce7cdfe0ac190e14c93412b1d5ac0f36febf514a8979fd5a6951de445c2499516a47e29d868645adee6fd0341cd43ccc788c31c193665cc797b490c1a086
+  checksum: 812c4106f492ccb9bd95aaaccecf166ce7bb85f522041430b42d2102c35dcfc3fc779c4f10628c452a812593ab973f9f5f5867270e6e932c52bb7e2af52ac628
   languageName: node
   linkType: hard
 
-"@fncts/io@npm:0.0.26, @fncts/io@npm:^0.0.26":
-  version: 0.0.26
-  resolution: "@fncts/io@npm:0.0.26"
+"@fncts/io@npm:0.0.30, @fncts/io@npm:^0.0.30":
+  version: 0.0.30
+  resolution: "@fncts/io@npm:0.0.30"
   dependencies:
-    "@fncts/base": "npm:0.0.24"
+    "@fncts/base": "npm:0.0.25"
     "@fncts/transformers": "npm:0.0.4"
     "@fncts/typelevel": "npm:0.0.15"
-  checksum: bfab48a8e1940c7cfd2310b87b60739b783b470526807d56ba4fbccc3451dfe4dd98fbd171eb22691b2f7177e6a76933ba4fbc694aee252c4aeb4a4dd46dd542
+  checksum: 799b1e3bc4f63d591f90dff53f2fa87609d5e50daa537434ded2179c1bb270203f56575b090334796ba99318d85209c0eae4c021f60f6f4b5d91c3418f566d6c
   languageName: node
   linkType: hard
 
-"@fncts/node@npm:^0.0.19":
-  version: 0.0.19
-  resolution: "@fncts/node@npm:0.0.19"
+"@fncts/node@npm:^0.0.23":
+  version: 0.0.23
+  resolution: "@fncts/node@npm:0.0.23"
   dependencies:
-    "@fncts/io": "npm:0.0.26"
-  checksum: e7f62caf244f8358faf7b61c3717528887e4a2acff9c08e5d851b29dc7d32f941154e54e0635d25aa12a405ba6fdb34749d3e9cd0cf6945135eb852e1cc500b8
+    "@fncts/io": "npm:0.0.30"
+  checksum: 888a5fd4a77d2f591101424be8fb4bd0dff1cf9e9972e607038e31fd8572cca80410c256771c53604a77543e2b712fecd644c37cc181e2a60bc80ed3b7ddc928
+  languageName: node
+  linkType: hard
+
+"@fncts/react@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@fncts/react@npm:0.0.2"
+  dependencies:
+    "@fncts/base": "npm:0.0.25"
+    "@fncts/io": "npm:0.0.30"
+    "@fncts/typelevel": "npm:0.0.15"
+    uuid: "npm:^9.0.0"
+  peerDependencies:
+    "@types/react": ^18.0.26
+    react: ^18.2.0
+    react-dom: ^18.2.0
+  checksum: c01b5512f68091df07e6274d1aa57596a27688a676ee898ae53135aa12d01bd8f752fd16ed99b4bc7b42c74b8b960f0c26f015a189a2a0b18e2d3e209c99d2b1
   languageName: node
   linkType: hard
 
@@ -4038,11 +4054,12 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.20.7"
     "@babel/preset-react": "npm:^7.18.6"
-    "@fncts/base": "npm:^0.0.24"
+    "@fncts/base": "npm:^0.0.25"
     "@fncts/eslint-config": "npm:^0.0.14"
-    "@fncts/express": "npm:^0.0.19"
-    "@fncts/io": "npm:^0.0.26"
-    "@fncts/node": "npm:^0.0.19"
+    "@fncts/express": "npm:^0.0.23"
+    "@fncts/io": "npm:^0.0.30"
+    "@fncts/node": "npm:^0.0.23"
+    "@fncts/react": "npm:^0.0.2"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.5.10"
     "@tsplus/installer": "npm:^0.0.161"
     "@types/babel__core": "npm:^7.1.20"

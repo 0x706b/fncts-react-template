@@ -4,7 +4,7 @@ import type { Match, Path } from "node-match-path";
 import * as fs from "@fncts/node/fs";
 import { match } from "node-match-path";
 
-import { RouteManifestServiceTag } from "./constants.js";
+import { RouteManifestServiceTag } from "../constants.js";
 
 export interface RouteManifestEntry {
   readonly type: string;

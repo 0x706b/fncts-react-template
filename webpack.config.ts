@@ -56,12 +56,12 @@ const client: Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules(?!\/@mui\/.*)/,
         use: [
           {
             loader: "babel-loader",
             options: {
-              plugins: ["babel-plugin-styled-components", ...(isDevelopment ? ["react-refresh/babel"] : [])],
+              plugins: [["babel-plugin-styled-components"], ...(isDevelopment ? ["react-refresh/babel"] : [])],
               presets: [["@babel/preset-react", { runtime: "automatic" }]],
             },
           },
